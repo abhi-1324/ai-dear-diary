@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Auth from './components/Auth';
+import Diary from './components/Diary';
 
 function App() {
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
+  function handleLogin(newToken) {
+    localStorage.setItem("token", newToken);
+    setToken(newToken);
+  }
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    setToken(null);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      {token ? (
+        <Diary token={token} onLogout={handleLogout} />
+      ) : (
+        <Auth onLogin={handleLogin} />
+      )}
     </div>
   );
 }
