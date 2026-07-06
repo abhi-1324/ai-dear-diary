@@ -11,7 +11,7 @@ function Auth({ onLogin }) {
     
     const endpoint = isSignup ? "/signup" : "/login";
     
-    const response = await fetch(`http://localhost:3001${endpoint}`, {
+   const response = await fetch(`https://ai-dear-diary.onrender.com${endpoint}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password })

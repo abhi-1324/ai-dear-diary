@@ -15,7 +15,7 @@ function Diary({ token, onLogout }) {
   }, []);
 
   async function fetchEntries() {
-    const response = await fetch("http://localhost:3001/entries", {
+    const response = await fetch("https://ai-dear-diary.onrender.com/entries", {
       headers: { "Authorization": "Bearer " + token }
     });
     const data = await response.json();
@@ -24,7 +24,7 @@ function Diary({ token, onLogout }) {
 
   async function saveEntry() {
     if (!content) return;
-    await fetch("http://localhost:3001/entries", {
+    await fetch("https://ai-dear-diary.onrender.com/entries", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +37,7 @@ function Diary({ token, onLogout }) {
   }
 
   async function deleteEntry(id) {
-    await fetch(`http://localhost:3001/entries/${id}`, {
+    await fetch(`https://ai-dear-diary.onrender.com/entries/${id}`, {
       method: "DELETE",
       headers: { "Authorization": "Bearer " + token }
     });
@@ -47,7 +47,7 @@ function Diary({ token, onLogout }) {
   async function analyzeEntries() {
     if (entries.length === 0) return;
     setLoading(true);
-    const response = await fetch("http://localhost:3001/analyze", {
+    const response = await fetch("https://ai-dear-diary.onrender.com/analyze", {
       method: "POST",
       headers: { "Authorization": "Bearer " + token }
     });
