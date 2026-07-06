@@ -9,6 +9,7 @@ function Diary({ token, onLogout }) {
 
   const moods = ["😊", "😔", "😤", "😴", "🔥", "😰", "🥹"];
 
+  // eslint-disable-next-line
   useEffect(() => {
     fetchEntries();
   }, []);
