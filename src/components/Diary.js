@@ -9,18 +9,16 @@ function Diary({ token, onLogout }) {
 
   const moods = ["😊", "😔", "😤", "😴", "🔥", "😰", "🥹"];
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
+    async function fetchEntries() {
+      const response = await fetch("https://ai-dear-diary.onrender.com/entries", {
+        headers: { "Authorization": "Bearer " + token }
+      });
+      const data = await response.json();
+      setEntries(data);
+    }
     fetchEntries();
-  }, []);
-
-  async function fetchEntries() {
-    const response = await fetch("https://ai-dear-diary.onrender.com/entries", {
-      headers: { "Authorization": "Bearer " + token }
-    });
-    const data = await response.json();
-    setEntries(data);
-  }
+  }, [token]);
 
   async function saveEntry() {
     if (!content) return;
@@ -33,7 +31,11 @@ function Diary({ token, onLogout }) {
       body: JSON.stringify({ content, mood })
     });
     setContent("");
-    fetchEntries();
+    const res = await fetch("https://ai-dear-diary.onrender.com/entries", {
+      headers: { "Authorization": "Bearer " + token }
+    });
+    const data = await res.json();
+    setEntries(data);
   }
 
   async function deleteEntry(id) {
@@ -41,7 +43,11 @@ function Diary({ token, onLogout }) {
       method: "DELETE",
       headers: { "Authorization": "Bearer " + token }
     });
-    fetchEntries();
+    const res = await fetch("https://ai-dear-diary.onrender.com/entries", {
+      headers: { "Authorization": "Bearer " + token }
+    });
+    const data = await res.json();
+    setEntries(data);
   }
 
   async function analyzeEntries() {
